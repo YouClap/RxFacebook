@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import io.reactivex.functions.BiConsumer;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -25,14 +27,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(final View view) {
 
-                RxFacebook.login(5, new RxFacebook.Cenas() {
-                    @Override
-                    public void cenas(int resultValue) {
-                        Snackbar.make(view, "Value: " + resultValue, Snackbar.LENGTH_LONG)
-                                .show();
-                    }
-                });
+                RxFacebook.login(5)
+                        .subscribe(new BiConsumer<Object, Throwable>() {
+                            @Override
+                            public void accept(Object o, Throwable throwable) throws Exception {
 
+                                Snackbar.make(view, "Value: " + o, Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
+                        });
             }
         });
     }

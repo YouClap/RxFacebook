@@ -7,12 +7,13 @@ import android.content.Intent;
 
 public final class RxFacebook {
 
-    private static Cenas mCenas;
+    private static FacebookLoginObservable mLoginObservable;
 
     //    @NonNull
-    public static void login(int value, Cenas cenas) {
+    public static FacebookLoginObservable login(int value) {
         FacebookLoginHandlerActivity.start(RxFacebookInitProvider.getAppContext(), value);
-        mCenas = cenas;
+        mLoginObservable = new FacebookLoginObservable();
+        return mLoginObservable;
     }
 
     //Login stuff
@@ -34,11 +35,12 @@ public final class RxFacebook {
 
         //TODO check value default value
 
-        mCenas.cenas(value);
+        mLoginObservable.onResult("" + value);
+        mLoginObservable = null;
     }
 
     public static void onActivityResultFailed(int requestCode, int resultCode, Intent data) {
-
+        //TODO not sure if worth to have this method
     }
 
     /**
@@ -47,11 +49,8 @@ public final class RxFacebook {
     //TODO make visibility package
     public static void onActivityDestroyed() {
         //TODO clear stuff
-        mCenas = null;
-    }
-
-    public interface Cenas {
-
-        void cenas(int resultValue);
+        if (mLoginObservable != null) {
+            //Should dispose?
+        }
     }
 }
