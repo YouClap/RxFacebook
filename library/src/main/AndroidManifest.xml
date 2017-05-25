@@ -1,0 +1,14 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.youclap.rxfacebook">
+
+    <application>
+
+        <provider
+                android:authorities="${applicationId}.rxfacebookprovider"
+                android:exported="false"
+                android:enabled="true"
+                android:name=".RxFacebookInitProvider"/>
+
+    </application>
+
+</manifest>
