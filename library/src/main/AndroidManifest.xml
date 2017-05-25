@@ -9,6 +9,9 @@
                 android:enabled="true"
                 android:name=".RxFacebookInitProvider"/>
 
+        <activity android:name=".login.FacebookLoginHandlerActivity"/>
+
+        <activity android:name=".login.MultiplierActivity"/>
     </application>
 
 </manifest>
