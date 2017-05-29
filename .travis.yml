@@ -23,9 +23,9 @@ android:
       - 'intel-android-extra-license.+'
       - '.+'
 
-jobs:
-  include:
-    - stage: Assemble
-      script: ./gradlew assemble
-    - stage: Unit Tests
-      script: ./gradlew test
+script:
+  # Compile the SDK
+  - ./gradlew assemble
+
+  # Run initTests
+  - ./gradlew test
