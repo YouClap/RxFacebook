@@ -21,6 +21,8 @@ import io.reactivex.functions.Consumer;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = "MainActivity";
+
     CallbackManager callbackManager;
 
     @Override
@@ -45,17 +47,17 @@ public class MainActivity extends AppCompatActivity {
                         .subscribe(new Consumer<LoginResult>() {
                             @Override
                             public void accept(@NonNull LoginResult loginResult) throws Exception {
-                                Log.d("cenas", "accept " + loginResult.getAccessToken());
+                                Log.d(LOG_TAG, "accept " + loginResult.getAccessToken());
                             }
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(@NonNull Throwable throwable) throws Exception {
-                                Log.e("cenas", "error ", throwable);
+                                Log.e(LOG_TAG, "error ", throwable);
                             }
                         }, new Action() {
                             @Override
                             public void run() throws Exception {
-                                Log.e("cenas", "onCompleted");
+                                Log.e(LOG_TAG, "onCompleted");
                             }
                         });
             }
