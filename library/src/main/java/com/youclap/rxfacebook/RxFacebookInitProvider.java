@@ -21,7 +21,7 @@ public class RxFacebookInitProvider extends ContentProvider {
      *
      * @return the context of the application
      */
-    protected static Context getAppContext() {
+    public static Context getAppContext() {
         return mContext.get();
     }
 

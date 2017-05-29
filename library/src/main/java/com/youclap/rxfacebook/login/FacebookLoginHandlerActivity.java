@@ -1,6 +1,10 @@
 package com.youclap.rxfacebook.login;
 
-import com.youclap.rxfacebook.RxFacebook;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,20 +12,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * This activity acts has a 'middleman' between the RxFacebook class and Facebook's login stuff
  */
-public class FacebookLoginHandlerActivity extends Activity {
+public class FacebookLoginHandlerActivity extends Activity implements FacebookCallback<LoginResult> {
 
-    private static final int OPEN_FACEBOOK_REQUEST_CODE = 42;
+    private static final String PERMISSIONS_KEY = "FacebookLoginHandlerActivity:Permissions";
 
     private static final String LOG_TAG = "FacebookLoginHandler";
+    private CallbackManager mCallbackManager;
 
-    public static void start(final Context context, int value) {
+    public static void start(final Context context, Collection<String> permissions) {
         final Intent intent = new Intent(context, FacebookLoginHandlerActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        intent.putExtra("value", value);
-
+        intent.putStringArrayListExtra(PERMISSIONS_KEY, new ArrayList<>(permissions));
         context.startActivity(intent);
     }
 
@@ -30,45 +37,41 @@ public class FacebookLoginHandlerActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
 
-        int value = getIntent().getIntExtra("value", -1);
+        ArrayList<String> permissions = getIntent().getStringArrayListExtra(PERMISSIONS_KEY);
 
-        if (value == -1) {
-            throw new RuntimeException("invalid value");
-        }
+        mCallbackManager = CallbackManager.Factory.create();
 
-        RxFacebook.onActivityReady(this);
-
-        Intent intent = new Intent(this, MultiplierActivity.class);
-        intent.putExtra("value", value);
-        startActivityForResult(intent, OPEN_FACEBOOK_REQUEST_CODE);
+        LoginManager.getInstance().registerCallback(mCallbackManager, this);
+        LoginManager.getInstance().logInWithReadPermissions(this, permissions);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == OPEN_FACEBOOK_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                RxFacebook.onActivityResult(requestCode, resultCode, data);
-            } else {
-                RxFacebook.onActivityResultFailed(requestCode, resultCode, data);
-            }
-            finish();
-        } else {
-            //TODO Should we do this?
-            super.onActivityResult(requestCode, resultCode, data);
-        }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        finish();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxFacebook.onActivityDestroyed();
+        RxFacebookLogin.onActivityDestroyed();
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        RxFacebook.onActivityReady(this);
+    public void onSuccess(LoginResult loginResult) {
+        RxFacebookLogin.onLoginSuccess(loginResult);
+    }
+
+    @Override
+    public void onCancel() {
+        RxFacebookLogin.onLoginCancel();
+    }
+
+    @Override
+    public void onError(FacebookException exception) {
+        RxFacebookLogin.onError(exception);
     }
 }

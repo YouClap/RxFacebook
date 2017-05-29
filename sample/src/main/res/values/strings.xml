@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">Sample</string>
+    <string name="app_name">RxFacebook Sample</string>
     <string name="action_settings">Settings</string>
+
+    <string name="facebook_app_id">TODO ADD facebook_app_id</string>
+    <string name="fb_login_protocol_scheme">TODO ADD fb_login_protocol_scheme</string>
+
 </resources>
