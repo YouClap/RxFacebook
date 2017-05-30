@@ -6,10 +6,6 @@ import com.youclap.rxfacebook.RxFacebookInitProvider;
 
 import java.util.Collection;
 
-/**
- * Created by renatoalmeida on 29/05/2017.
- */
-
 public final class RxFacebookLogin {
 
     private static FacebookLoginObservable mLoginObservable;

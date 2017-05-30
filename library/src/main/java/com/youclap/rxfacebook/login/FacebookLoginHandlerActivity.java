@@ -23,6 +23,7 @@ public class FacebookLoginHandlerActivity extends Activity implements FacebookCa
     private static final String PERMISSIONS_KEY = "FacebookLoginHandlerActivity:Permissions";
 
     private static final String LOG_TAG = "FacebookLoginHandler";
+
     private CallbackManager mCallbackManager;
 
     public static void start(final Context context, Collection<String> permissions) {
