@@ -12,7 +12,9 @@
                 android:enabled="true"
                 android:name=".RxFacebookInitProvider"/>
 
-        <activity android:name=".login.FacebookLoginHandlerActivity"/>
+        <activity
+                android:name=".login.FacebookLoginHandlerActivity"
+                android:theme="@style/Theme.Transparent"/>
 
         <!--Facebook SDK needed -->
         <activity
