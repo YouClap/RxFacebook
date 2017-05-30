@@ -14,7 +14,8 @@
 
         <activity
                 android:name=".login.FacebookLoginHandlerActivity"
-                android:theme="@style/Theme.Transparent"/>
+                android:theme="@style/Theme.Transparent"
+                android:launchMode="singleInstance"/>
 
         <!--Facebook SDK needed -->
         <activity

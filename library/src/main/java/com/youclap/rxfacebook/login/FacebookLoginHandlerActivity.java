@@ -38,7 +38,6 @@ public class FacebookLoginHandlerActivity extends Activity implements FacebookCa
         super.onCreate(savedInstanceState);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
 
         ArrayList<String> permissions = getIntent().getStringArrayListExtra(PERMISSIONS_KEY);
 
