@@ -15,6 +15,10 @@ import android.view.WindowManager;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static android.content.Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION;
+
 /**
  * This activity acts has a 'middleman' between the RxFacebook class and Facebook's login stuff
  */
@@ -28,7 +32,7 @@ public class FacebookLoginHandlerActivity extends Activity implements FacebookCa
 
     public static void start(final Context context, Collection<String> permissions) {
         final Intent intent = new Intent(context, FacebookLoginHandlerActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        intent.addFlags(FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS | FLAG_ACTIVITY_NO_ANIMATION | FLAG_ACTIVITY_NEW_TASK);
         intent.putStringArrayListExtra(PERMISSIONS_KEY, new ArrayList<>(permissions));
         context.startActivity(intent);
     }
