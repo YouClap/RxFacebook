@@ -8,11 +8,11 @@ import java.util.Collection;
 
 public final class RxFacebookLogin {
 
-    private static FacebookLoginObservable mLoginObservable;
+    private static RxFacebookLoginMaybe mLoginObservable;
 
-    public static FacebookLoginObservable logInWithReadPermissions(Collection<String> permissions) {
+    public static RxFacebookLoginMaybe logInWithReadPermissions(Collection<String> permissions) {
         FacebookLoginHandlerActivity.start(RxFacebookInitProvider.getAppContext(), permissions);
-        mLoginObservable = new FacebookLoginObservable();
+        mLoginObservable = new RxFacebookLoginMaybe();
         return mLoginObservable;
     }
 

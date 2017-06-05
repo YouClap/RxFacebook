@@ -5,7 +5,7 @@ import com.facebook.login.LoginResult;
 import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
 
-public class FacebookLoginObservable extends Maybe<LoginResult> {
+public class RxFacebookLoginMaybe extends Maybe<LoginResult> {
 
     private MaybeObserver<? super LoginResult> mObserver;
 
