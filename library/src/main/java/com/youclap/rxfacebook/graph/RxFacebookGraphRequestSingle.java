@@ -33,8 +33,11 @@ public class RxFacebookGraphRequestSingle extends Single<GraphResponse> {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
 
-                //TODO should throw error if response.getError() != null ?
-                mObserver.onSuccess(response);
+                if (response.getError() != null) {
+                    mObserver.onSuccess(response);
+                } else {
+                    mObserver.onError(response.getError().getException());
+                }
             }
         });
 
