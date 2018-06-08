@@ -21,7 +21,7 @@ android {
 
 dependencies {
 
-    api 'com.facebook.android:facebook-android-sdk:[4,5)'
+    api 'com.facebook.android:facebook-android-sdk:4.33.0'
 
     implementation "io.reactivex.rxjava2:rxjava:2.1.12"
 
