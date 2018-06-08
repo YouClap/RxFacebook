@@ -5,6 +5,11 @@
 
     <application>
 
+        <activity
+            android:name=".login.FacebookLoginHandlerActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.Transparent" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -13,6 +18,7 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
+
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
