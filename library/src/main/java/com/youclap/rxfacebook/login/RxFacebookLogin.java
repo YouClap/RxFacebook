@@ -1,8 +1,9 @@
 package com.youclap.rxfacebook.login;
 
+import android.content.Context;
+
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
-import com.youclap.rxfacebook.RxFacebookInitProvider;
 
 import java.util.Collection;
 
@@ -10,8 +11,8 @@ public final class RxFacebookLogin {
 
     private static RxFacebookLoginMaybe mLoginObservable;
 
-    public static RxFacebookLoginMaybe logInWithReadPermissions(Collection<String> permissions) {
-        FacebookLoginHandlerActivity.start(RxFacebookInitProvider.getAppContext(), permissions);
+    public static RxFacebookLoginMaybe logInWithReadPermissions(Context context, Collection<String> permissions) {
+        FacebookLoginHandlerActivity.start(context, permissions);
         mLoginObservable = new RxFacebookLoginMaybe();
         return mLoginObservable;
     }
